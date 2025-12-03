@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'; // <--- NEW IMPORTS
 import { Menu, Search, Bell, LogOut } from 'lucide-react';
 
 // Layout Components
-// Make sure these paths match exactly where you saved the files
 import Sidebar from './components/layout/Sidebar';
 import LoginScreen from './components/layout/LoginScreen';
 
@@ -17,52 +17,32 @@ import AddStudent from './components/features/AddStudent';
 import AddTeacher from './components/features/AddTeacher';
 import { MOCK_DATA } from './data/mockData';
 
-
-
 export default function App() {
-  const [userRole, setUserRole] = useState(null); // 'admin' | 'teacher' | 'student' | null
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [userRole, setUserRole] = useState(null); 
+  // const [activeTab, setActiveTab] = useState('dashboard'); <--- REMOVED THIS
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // Add these lines inside the App component
+  
+  // Data State
   const [students, setStudents] = useState(MOCK_DATA.students);
   const [teachers, setTeachers] = useState([
     { id: 1, name: "Prof. Sarah Connor", subject: "Physics", email: "sarah@school.com" },
     { id: 2, name: "Dr. Emmett Brown", subject: "Science", email: "doc@school.com" }
   ]);
 
+  const location = useLocation(); // <--- This reads the current URL
+
   const handleLogin = (role) => {
     setUserRole(role);
-    setActiveTab('dashboard');
   };
 
   const handleLogout = () => {
     setUserRole(null);
   };
 
-  // Router Logic: Decides which component to show based on activeTab
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard': return <DashboardContent role={userRole} />;
-      case 'attendance': return <AttendanceFeature role={userRole} />;
-      case 'timetable': return <TimetableFeature />;
-      case 'grades': return <GradesFeature role={userRole} />;
-      case 'homework': return <HomeworkFeature role={userRole} />;
-      case 'notices': return <NoticesFeature />;
-      case 'students': 
-        return <AddStudent data={students} setData={setStudents} />;
-      case 'teachers': 
-        return <AddTeacher data={teachers} setData={setTeachers} />;
-      case 'classes':
-      case 'fees':
-        return (
-          <div className="flex flex-col items-center justify-center h-96 text-gray-400">
-            <p className="text-xl font-semibold">Module: {activeTab}</p>
-            <p>This feature is currently under construction.</p>
-          </div>
-        );
-      default: 
-        return <div>Page Not Found</div>;
-    }
+  // Helper to format the Header Title (e.g., "/fee-management" -> "Fee Management")
+  const getPageTitle = () => {
+    const path = location.pathname.replace('/', '');
+    return path ? path.replace('-', ' ') : 'Dashboard';
   };
 
   // 1. If no user is logged in, show the Login Screen
@@ -73,10 +53,9 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 font-sans text-gray-900">
       <Sidebar
         role={userRole} 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab}
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
+        // activeTab props removed (Router handles it now)
       />
 
       <div className="md:ml-64 transition-all duration-300">
@@ -87,7 +66,7 @@ export default function App() {
               <Menu size={24} />
             </button>
             <h1 className="text-xl font-bold text-gray-800 capitalize hidden sm:block">
-              {activeTab.replace('-', ' ')}
+              {getPageTitle()}
             </h1>
           </div>
           
@@ -118,7 +97,37 @@ export default function App() {
         {/* Main Content Area */}
         <main className="p-6">
           <div className="max-w-7xl mx-auto">
-            {renderContent()}
+            {/* THIS IS THE NEW ROUTER SYSTEM */}
+            <Routes>
+              <Route path="/" element={<DashboardContent role={userRole} />} />
+              <Route path="/attendance" element={<AttendanceFeature role={userRole} />} />
+              <Route path="/timetable" element={<TimetableFeature />} />
+              <Route path="/grades" element={<GradesFeature role={userRole} />} />
+              <Route path="/homework" element={<HomeworkFeature role={userRole} />} />
+              <Route path="/notices" element={<NoticesFeature />} />
+              
+              {/* Passing Props exactly as you did before */}
+              <Route path="/students" element={<AddStudent data={students} setData={setStudents} />} />
+              <Route path="/teachers" element={<AddTeacher data={teachers} setData={setTeachers} />} />
+              
+              {/* Placeholders for incomplete features */}
+              <Route path="/classes" element={
+                <div className="flex flex-col items-center justify-center h-96 text-gray-400">
+                  <p className="text-xl font-semibold">Module: Classes</p>
+                  <p>This feature is currently under construction.</p>
+                </div>
+              } />
+              
+              <Route path="/fees" element={
+                <div className="flex flex-col items-center justify-center h-96 text-gray-400">
+                  <p className="text-xl font-semibold">Module: Fee Management</p>
+                  <p>This feature is currently under construction.</p>
+                </div>
+              } />
+
+              {/* Redirect unknown routes to Dashboard */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
           </div>
         </main>
       </div>

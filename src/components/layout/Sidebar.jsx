@@ -1,34 +1,37 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom'; // <--- CHANGED: Import NavLink
 import { 
   Users, BookOpen, Calendar, CheckSquare, 
   FileText, BarChart2, Bell, X, User, GraduationCap 
 } from 'lucide-react';
 
-const Sidebar = ({ role, activeTab, setActiveTab, isOpen, setIsOpen }) => {
+const Sidebar = ({ role, isOpen, setIsOpen }) => { // <--- REMOVED: activeTab props
+  
+  // 1. ADDED "path" to every menu item
   const commonMenus = [
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart2 },
-    { id: 'notices', label: 'Notice Board', icon: Bell },
+    { id: 'dashboard', label: 'Dashboard', icon: BarChart2, path: '/' },
+    { id: 'notices', label: 'Notice Board', icon: Bell, path: '/notices' },
   ];
 
   const roleMenus = {
     admin: [
-      { id: 'students', label: 'Students', icon: Users },
-      { id: 'teachers', label: 'Teachers', icon: User },
-      { id: 'classes', label: 'Classes', icon: BookOpen },
-      { id: 'timetable', label: 'Timetable', icon: Calendar },
-      { id: 'fees', label: 'Fee Management', icon: FileText },
+      { id: 'students', label: 'Students', icon: Users, path: '/students' },
+      { id: 'teachers', label: 'Teachers', icon: User, path: '/teachers' },
+      { id: 'classes', label: 'Classes', icon: BookOpen, path: '/classes' },
+      { id: 'timetable', label: 'Timetable', icon: Calendar, path: '/timetable' },
+      { id: 'fees', label: 'Fee Management', icon: FileText, path: '/fees' },
     ],
     teacher: [
-      { id: 'attendance', label: 'Attendance', icon: CheckSquare },
-      { id: 'grades', label: 'Grades & Marks', icon: GraduationCap },
-      { id: 'homework', label: 'Homework & Diary', icon: BookOpen },
-      { id: 'timetable', label: 'My Schedule', icon: Calendar },
+      { id: 'attendance', label: 'Attendance', icon: CheckSquare, path: '/attendance' },
+      { id: 'grades', label: 'Grades & Marks', icon: GraduationCap, path: '/grades' },
+      { id: 'homework', label: 'Homework & Diary', icon: BookOpen, path: '/homework' },
+      { id: 'timetable', label: 'My Schedule', icon: Calendar, path: '/timetable' },
     ],
     student: [
-      { id: 'homework', label: 'Homework', icon: BookOpen },
-      { id: 'timetable', label: 'Timetable', icon: Calendar },
-      { id: 'attendance', label: 'My Attendance', icon: CheckSquare },
-      { id: 'grades', label: 'Report Card', icon: GraduationCap },
+      { id: 'homework', label: 'Homework', icon: BookOpen, path: '/homework' },
+      { id: 'timetable', label: 'Timetable', icon: Calendar, path: '/timetable' },
+      { id: 'attendance', label: 'My Attendance', icon: CheckSquare, path: '/attendance' },
+      { id: 'grades', label: 'Report Card', icon: GraduationCap, path: '/grades' },
     ]
   };
 
@@ -61,21 +64,20 @@ const Sidebar = ({ role, activeTab, setActiveTab, isOpen, setIsOpen }) => {
           {menuItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button
+              /* CHANGED: Button -> NavLink */
+              <NavLink
                 key={item.id}
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setIsOpen(false);
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                  activeTab === item.id 
+                to={item.path} // <--- Links to the URL
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) => `w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                  isActive // <--- Router checks this automatically
                     ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/50' 
                     : 'text-slate-400 hover:bg-slate-800 hover:text-white'
                 }`}
               >
                 <Icon size={18} />
                 <span className="font-medium">{item.label}</span>
-              </button>
+              </NavLink>
             );
           })}
         </nav>
