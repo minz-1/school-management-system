@@ -1,7 +1,29 @@
-import React from 'react';
-import { Users, BookOpen, User, GraduationCap } from 'lucide-react';
+// src/components/layout/LoginScreen.jsx
+import React, { useState } from 'react';
+import { GraduationCap, User } from 'lucide-react';
 
 const LoginScreen = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setIsSubmitting(true);
+
+    try {
+      const result = await onLogin(username, password);
+
+      if (!result || !result.success) {
+        setError(result?.message || 'Login failed');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -12,48 +34,69 @@ const LoginScreen = ({ onLogin }) => {
           <h1 className="text-3xl font-bold text-white mb-2">EduNexus</h1>
           <p className="text-indigo-100">School Management System</p>
         </div>
-        
-        <div className="p-8 space-y-4">
-          <p className="text-center text-gray-500 mb-6">Select a portal to demo the interface</p>
-          
-          <button 
-            onClick={() => onLogin('admin')}
-            className="w-full flex items-center p-4 border rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
-          >
-            <div className="bg-blue-100 p-2 rounded-lg text-blue-600 group-hover:bg-blue-200">
-              <Users size={24} />
-            </div>
-            <div className="ml-4 text-left">
-              <h3 className="font-bold text-gray-800">Admin Portal</h3>
-              <p className="text-sm text-gray-500">Manage users, fees, and settings</p>
-            </div>
-          </button>
 
-          <button 
-            onClick={() => onLogin('teacher')}
-            className="w-full flex items-center p-4 border rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
-          >
-            <div className="bg-green-100 p-2 rounded-lg text-green-600 group-hover:bg-green-200">
-              <BookOpen size={24} />
-            </div>
-            <div className="ml-4 text-left">
-              <h3 className="font-bold text-gray-800">Teacher Portal</h3>
-              <p className="text-sm text-gray-500">Mark attendance, grades, and homework</p>
-            </div>
-          </button>
-
-          <button 
-            onClick={() => onLogin('student')}
-            className="w-full flex items-center p-4 border rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
-          >
-            <div className="bg-orange-100 p-2 rounded-lg text-orange-600 group-hover:bg-orange-200">
+        <div className="p-8 space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-indigo-50 text-indigo-600">
               <User size={24} />
             </div>
-            <div className="ml-4 text-left">
-              <h3 className="font-bold text-gray-800">Student Portal</h3>
-              <p className="text-sm text-gray-500">View timetable, grades, and diary</p>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Sign in</h2>
+              <p className="text-sm text-gray-500">Use your school account</p>
             </div>
-          </button>
+          </div>
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Username
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                placeholder="Enter username ....."
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                placeholder=" Enter password ....."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+            </div>
+
+            {error && (
+              <p className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full inline-flex justify-center items-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm disabled:opacity-60"
+            >
+              {isSubmitting ? 'Signing in...' : 'Login'}
+            </button>
+          </form>
+
+          {/* Demo credentials helper */}
+          <div className="text-xs text-gray-500 bg-slate-50 border border-dashed border-slate-200 rounded-lg p-3 space-y-1">
+            <p className="font-semibold text-gray-700 mb-1">Demo Accounts:</p>
+            <p>Admin → <code>admin@edu.pk / admin123</code></p>
+            <p>Teacher → <code>john@edu.pk/ john123</code></p>
+            <p>Student → <code>ali@edu.pk/ ali123</code></p>
+          </div>
         </div>
       </div>
     </div>
