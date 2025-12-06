@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'; // <--- NEW IMPORTS
 import { Menu, Search, Bell, LogOut } from 'lucide-react';
+import Classes from "./pages/Classes";
+
 
 // Layout Components
 import Sidebar from './components/layout/Sidebar';
@@ -111,19 +113,9 @@ export default function App() {
               <Route path="/teachers" element={<AddTeacher data={teachers} setData={setTeachers} />} />
               
               {/* Placeholders for incomplete features */}
-              <Route path="/classes" element={
-                <div className="flex flex-col items-center justify-center h-96 text-gray-400">
-                  <p className="text-xl font-semibold">Module: Classes</p>
-                  <p>This feature is currently under construction.</p>
-                </div>
-              } />
               
-              <Route path="/fees" element={
-                <div className="flex flex-col items-center justify-center h-96 text-gray-400">
-                  <p className="text-xl font-semibold">Module: Fee Management</p>
-                  <p>This feature is currently under construction.</p>
-                </div>
-              } />
+              <Route path="/classes" element={<Classes />} />
+
 
               {/* Redirect unknown routes to Dashboard */}
               <Route path="*" element={<Navigate to="/" />} />
