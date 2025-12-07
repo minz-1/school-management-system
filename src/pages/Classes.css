@@ -1,0 +1,148 @@
+/* Simple EduNexus theme - Indigo / White / Clean */
+.edu-page {
+  padding: 24px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #f8fafc; /* very light */
+  min-height: 100vh;
+}
+
+/* header */
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.edu-header h1 {
+  margin: 0;
+  color: #2c3e91; /* indigo */
+  font-size: 28px;
+}
+.btn-primary {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-primary:hover { opacity: 0.95; }
+
+/* grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* card */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(19, 20, 24, 0.04);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.class-name {
+  font-weight: 700;
+  color: #2c3e91;
+  font-size: 16px;
+}
+.card-actions {
+  display: flex;
+  gap: 6px;
+}
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.icon-btn.danger { color: #c0392b; }
+
+/* body rows */
+.card-body {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.row .label {
+  color: #64748b;
+}
+.capacity {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #475569;
+}
+
+/* modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 13, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+}
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 420px;
+  max-width: 96%;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.2);
+}
+.modal h2 {
+  margin: 0 0 10px 0;
+  color: #2c3e91;
+}
+.class-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #0f172a;
+}
+.class-form input,
+.class-form select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e6eef8;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.form-actions button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+}
+.form-actions .btn-primary {
+  border: none;
+}

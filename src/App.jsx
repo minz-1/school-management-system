@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Menu, Search, Bell, LogOut } from 'lucide-react';
+import Classes from "./pages/Classes";
+
 
 // Layout Components
 import Sidebar from './components/layout/Sidebar';
@@ -133,6 +135,18 @@ export default function App() {
               <Route path="/grades" element={<GradesFeature role={userRole} />} />
               <Route path="/homework" element={<HomeworkFeature role={userRole} />} />
               <Route path="/notices" element={<NoticesFeature />} />
+<<<<<<< HEAD
+              
+              {/* Passing Props exactly as you did before */}
+              <Route path="/students" element={<AddStudent data={students} setData={setStudents} />} />
+              <Route path="/teachers" element={<AddTeacher data={teachers} setData={setTeachers} />} />
+              
+              {/* Placeholders for incomplete features */}
+              
+              <Route path="/classes" element={<Classes />} />
+
+=======
+>>>>>>> main
 
               {/* Student Management (Admin Only) */}
               <Route
