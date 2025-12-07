@@ -31,6 +31,8 @@ const TimetableFeature = () => (
                     <td className="px-6 py-4">{slot.wed}</td>
                     <td className="px-6 py-4">{slot.thu}</td>
                     <td className="px-6 py-4">{slot.fri}</td>
+                    <td className="px-6 py-4">{slot.sat}</td>
+
                   </>
                 )}
               </tr>
