@@ -23,14 +23,20 @@ import { USERS } from './data/users';
 import RequireRole from './components/auth/RequireRole';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+  id: 1,
+  username: 'admin',
+  fullName: 'Dev Admin',
+  role: 'admin'  // <--- This is the key part that gives you access
+});
+  // const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState(USERS);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [students, setStudents] = useState(MOCK_DATA.students);
   const [teachers, setTeachers] = useState([
-    { id: 1, name: 'Prof. Sarah Connor', subject: 'Physics', email: 'sarah@school.com' },
-    { id: 2, name: 'Dr. Emmett Brown', subject: 'Science', email: 'doc@school.com' }
+    { id: 1, name: 'Miss Ayesha', subject: 'Physics', email: 'ayesha@school.com' },
+    { id: 2, name: 'Miss Sara', subject: 'Science', email: 'sara@school.com' }
   ]);
 
   const location = useLocation();
@@ -169,7 +175,7 @@ export default function App() {
                 path="/classes"
                 element={
                   <RequireRole allowedRoles="admin" currentRole={userRole}>
-                    <ClassesModule classes={classes} setClasses={setClasses} />
+                    
                   </RequireRole>
                 }
               />
