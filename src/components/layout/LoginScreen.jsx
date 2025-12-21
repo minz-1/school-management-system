@@ -1,4 +1,4 @@
-// src/components/layout/LoginScreen.jsx
+
 import React, { useState } from 'react';
 import { GraduationCap, User } from 'lucide-react';
 
@@ -90,11 +90,11 @@ const LoginScreen = ({ onLogin }) => {
             </button>
           </form>
 
-          {/* Demo credentials helper */}
+         
           <div className="text-xs text-gray-500 bg-slate-50 border border-dashed border-slate-200 rounded-lg p-3 space-y-1">
             <p className="font-semibold text-gray-700 mb-1">Demo Accounts:</p>
             <p>Admin → <code>admin@edu.pk / admin123</code></p>
-            <p>Teacher → <code>john@edu.pk/ john123</code></p>
+            <p>Teacher → <code>hasan@edu.pk/ hasan123</code></p>
             <p>Student → <code>ali@edu.pk/ ali123</code></p>
           </div>
         </div>
