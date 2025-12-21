@@ -41,7 +41,7 @@ const AddTeacher = ({ data, setData }) => {
         </Button>
       </div>
 
-      {/* ADD FORM */}
+      
       {isFormOpen && (
         <Card className="bg-green-50 border-green-100 animate-in fade-in slide-in-from-top-4 duration-300">
           <h3 className="font-bold text-lg mb-4 text-green-900">Register New Teacher</h3>

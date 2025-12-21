@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Menu, Search, Bell, LogOut } from 'lucide-react';
-import Classes from "./pages/Classes";
-
+import Classes from "./pages/Classes"; // Maryam's New Import
 
 // Layout Components
 import Sidebar from './components/layout/Sidebar';
@@ -25,14 +24,23 @@ import { USERS } from './data/users';
 import RequireRole from './components/auth/RequireRole';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  // TEMPORARY DEV MODE: Auto-login as Admin
+  const [currentUser, setCurrentUser] = useState(false);
+  //   {
+  //   id: 1,
+  //   username: 'admin',
+  //   fullName: 'Admin',
+  //   role: 'admin'
+  // }
+
+  
   const [users, setUsers] = useState(USERS);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [students, setStudents] = useState(MOCK_DATA.students);
   const [teachers, setTeachers] = useState([
-    { id: 1, name: 'Prof. Sarah Connor', subject: 'Physics', email: 'sarah@school.com' },
-    { id: 2, name: 'Dr. Emmett Brown', subject: 'Science', email: 'doc@school.com' }
+    { id: 1, name: 'Ms, Sara Iqbal', subject: 'Physics', email: 'sara@school.com' },
+    { id: 2, name: 'Ms. Fatima Khan', subject: 'Science', email: 'fatima@school.com' }
   ]);
 
   const location = useLocation();
@@ -125,7 +133,7 @@ export default function App() {
           </div>
         </header>
 
-        {/* MAIN CONTENT */}
+        
         <main className="p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
             <Routes>
@@ -135,20 +143,8 @@ export default function App() {
               <Route path="/grades" element={<GradesFeature role={userRole} />} />
               <Route path="/homework" element={<HomeworkFeature role={userRole} />} />
               <Route path="/notices" element={<NoticesFeature />} />
-<<<<<<< HEAD
-              
-              {/* Passing Props exactly as you did before */}
-              <Route path="/students" element={<AddStudent data={students} setData={setStudents} />} />
-              <Route path="/teachers" element={<AddTeacher data={teachers} setData={setTeachers} />} />
-              
-              {/* Placeholders for incomplete features */}
-              
-              <Route path="/classes" element={<Classes />} />
 
-=======
->>>>>>> main
-
-              {/* Student Management (Admin Only) */}
+             
               <Route
                 path="/students"
                 element={
@@ -158,7 +154,7 @@ export default function App() {
                 }
               />
 
-              {/* Teacher Management (Admin Only) */}
+             
               <Route
                 path="/teachers"
                 element={
@@ -168,7 +164,7 @@ export default function App() {
                 }
               />
 
-              {/* User Management */}
+              
               <Route
                 path="/admin/users"
                 element={
@@ -178,18 +174,17 @@ export default function App() {
                 }
               />
 
-              {/* Classes */}
+              
               <Route
                 path="/classes"
                 element={
                   <RequireRole allowedRoles="admin" currentRole={userRole}>
-                    <ClassesModule classes={classes} setClasses={setClasses} />
+                    <Classes />
                   </RequireRole>
                 }
               />
 
-
-              {/* Fees */}
+              
               <Route
                 path="/fees"
                 element={
@@ -202,7 +197,7 @@ export default function App() {
                 }
               />
 
-              {/* Fallback */}
+             
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
