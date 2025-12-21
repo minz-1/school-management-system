@@ -8,10 +8,10 @@ export const USERS = [
   },
   {
     id: 2,
-    username: 'john@edu.pk',
-    password: 'john123',
+    username: 'hasan@edu.pk',
+    password: 'hasan123',
     role: 'teacher',
-    fullName: 'Mr. John Teacher'
+    fullName: 'Mr. Hasan Teacher'
   },
   {
     id: 3,

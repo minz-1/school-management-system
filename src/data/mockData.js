@@ -6,10 +6,10 @@ export const MOCK_DATA = {
     attendanceRate: 94
   },
   students: [
-    { id: 1, name: "Alice Johnson", class: "10-A", rollNo: 101, attendance: 92 },
-    { id: 2, name: "Bob Smith", class: "10-A", rollNo: 102, attendance: 88 },
-    { id: 3, name: "Charlie Brown", class: "10-A", rollNo: 103, attendance: 95 },
-    { id: 4, name: "Diana Prince", class: "10-B", rollNo: 104, attendance: 98 },
+    { id: 1, firstName: "Alice", lastName:"Johnson", address:'house', class: "10-A", rollNo: 101, attendance: 92 },
+    { id: 2, firstName: "Ayesha", lastName:"Khann",class: "10-A", rollNo: 102, attendance: 88 },
+    { id: 3, firstName: "Ahmed", lastName:"Ali", class: "10-A", rollNo: 103, attendance: 95 },
+    { id: 4,  firstName: "Hasan", lastName:"Iqbal",class: "10-B", rollNo: 104, attendance: 98 },
   ],
   timetable: [
     { time: "08:00 - 08:45", mon: "Math", tue: "Physics", wed: "Math", thu: "English", fri: "History" },
