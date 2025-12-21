@@ -1,13 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'; // <--- CHANGED: Import NavLink
+import { NavLink } from 'react-router-dom';
 import { 
   Users, BookOpen, Calendar, CheckSquare, 
   FileText, BarChart2, Bell, X, User, GraduationCap 
 } from 'lucide-react';
 
-const Sidebar = ({ role, isOpen, setIsOpen }) => { // <--- REMOVED: activeTab props
+const Sidebar = ({ role, isOpen, setIsOpen }) => { 
   
-  // 1. ADDED "path" to every menu item
+  
   const commonMenus = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart2, path: '/' },
     { id: 'notices', label: 'Notice Board', icon: Bell, path: '/notices' },
@@ -35,18 +35,18 @@ const Sidebar = ({ role, isOpen, setIsOpen }) => { // <--- REMOVED: activeTab pr
     ]
   };
 
-  // Combine menus safely
+
   const menuItems = [...commonMenus.slice(0,1), ...(roleMenus[role] || []), ...commonMenus.slice(1)];
 
   return (
     <>
-      {/* Mobile Overlay */}
+      
       <div 
         className={`fixed inset-0 bg-black/50 z-20 md:hidden transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsOpen(false)}
       />
       
-      {/* Sidebar Container */}
+      
       <div className={`fixed inset-y-0 left-0 w-64 bg-slate-900 text-white z-30 transform transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-6 border-b border-slate-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -64,13 +64,13 @@ const Sidebar = ({ role, isOpen, setIsOpen }) => { // <--- REMOVED: activeTab pr
           {menuItems.map((item) => {
             const Icon = item.icon;
             return (
-              /* CHANGED: Button -> NavLink */
+              
               <NavLink
                 key={item.id}
-                to={item.path} // <--- Links to the URL
+                to={item.path} 
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) => `w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                  isActive // <--- Router checks this automatically
+                  isActive 
                     ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/50' 
                     : 'text-slate-400 hover:bg-slate-800 hover:text-white'
                 }`}
